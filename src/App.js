@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import * as BooksAPI from './utils/BooksAPI';
+import { Route } from 'react-router-dom';
+import BooksList from './BooksList';
 import './App.css';
 
-class App extends React.Component {
+class App extends Component {
   state = {
     books : []
   }
@@ -14,13 +16,17 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.books);
     return (
       <div className="app">
-        Here I am ready to begin
+        <Route exact path = "/" render = {() => (
+            <BooksList
+              books = {this.state.books}
+            />
+          )}
+          />
       </div>
     )
   }
 }
 
-export default App
+export default App;
