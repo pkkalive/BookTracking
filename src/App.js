@@ -2,7 +2,7 @@ import React from 'react'
 // import * as BooksAPI from './BooksAPI'
 import './App.css'
 
-class App extends React.Component {
+class BooksApp extends React.Component {
   state = {
     /**
      * TODO: Instead of using this state variable to keep track of which page
@@ -203,4 +203,4 @@ class App extends React.Component {
   }
 }
 
-export default App
+export default BooksApp
