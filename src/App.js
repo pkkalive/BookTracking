@@ -8,7 +8,7 @@ class App extends React.Component {
   }
 
   componentDidMount(){
-    ContactsAPI.getAll().then((books) => {
+    BooksAPI.getAll().then((books) => {
       this.setState({books: books})
     })
   }
