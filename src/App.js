@@ -7,7 +7,14 @@ class App extends React.Component {
     books : []
   }
 
+  componentDidMount(){
+    ContactsAPI.getAll().then((books) => {
+      this.setState({books: books})
+    })
+  }
+
   render() {
+    console.log(this.state.books);
     return (
       <div className="app">
         Here I am ready to begin
