@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import * as BooksAPI from './utils/BooksAPI';
-import { Route } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import BooksList from './BooksList';
+import SearchBooks from './SearchBooks';
 import './App.css';
+
 
 class App extends Component {
   state = {
@@ -15,12 +17,55 @@ class App extends Component {
     })
   }
 
+  updateBookCategory(book, shelf) {
+    if (book.shelf !== shelf) {
+      BooksAPI.update(book, shelf)
+        .then((response) => {
+          book.shelf = shelf
+          this.setState({
+          books: this.state.books.filter(b => b.id !== book.id).concat([ book ])
+        })
+      })
+    }
+  }
+
+  handleChangeBooksCategory(book, newCategory) {
+    this.updateBookCategory(book, newCategory)
+  }
+
+  getBookById(id) {
+    let books ="";
+    if(this.state.books) {
+      books = this.state.books.filter((book) => book.id === id)
+      if (books.length > 0) {
+        return books[0]
+      } else {
+        return null
+      }
+    }
+  }
+
+
   render() {
     return (
       <div className="app">
-        <Route exact path = "/" render = {() => (
+        <Route exact path="/" render={() => (
             <BooksList
-              books = {this.state.books}
+              books={this.state.books}
+              onChangeBooksCategory={this.handleChangeBooksCategory.bind(this)}
+            />
+          )}
+          />
+          <div className="open-search">
+            <Link
+              to='/search'
+            >Add a book</Link>
+          </div>
+
+          <Route exact path='/search' render={() => (
+          <SearchBooks
+              books={this.state.books}
+              onChangeBooksCategory={this.handleChangeBooksCategory.bind(this)}
             />
           )}
           />
