@@ -14,15 +14,15 @@ class BooksList extends Component {
   	const bookShelfTitleSelector = [
 	    {
 	      title: 'Currently Reading',
-	      books: books.filter((book) => book.shelf === 'currentlyReading')
+	      books: books.filter((b) => b.shelf === 'currentlyReading')
 	    },
 	    {
 	      title: 'Want to Read',
-	      books: books.filter((book) => book.shelf === 'wantToRead')
+	      books: books.filter((b) => b.shelf === 'wantToRead')
 	    },
 	    {
 	      title: 'Read',
-	      books: books.filter((book) => book.shelf === 'read')
+	      books: books.filter((b) => b.shelf === 'read')
 	    }
 	  ]
 
@@ -31,11 +31,11 @@ class BooksList extends Component {
 	      <Header heading={"My Reads"} />
 	      <div className='list-books-content'>
 			    {
-			      bookShelfTitleSelector.map((book, index) => (
+			      bookShelfTitleSelector.map((myBooks, index) => (
 			       <BookShelfCategory
 		            key={index}
-		            title={book.title}
-		            books={book.books}
+		            title={myBooks.title}
+		            books={myBooks.books}
 		            onChangeBooksCategory={onChangeBooksCategory}
 		          />
 		        ))

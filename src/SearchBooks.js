@@ -2,32 +2,40 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import BooksDetailsList from './BooksDetailsList';
 import * as BooksAPI from './utils/BooksAPI';
+import { Throttle } from 'react-throttle';
 import PropType from 'prop-types';
 import sortBy from 'sort-by';
 
 class SearchBooks extends Component {
 
   state = {
-    query: '',
-    searchBooks: []
+    searchBooks: [],
+    error: false,
+    loading: false
   }
-
 
   static propTypes = {
     onChangeBooksCategory: PropType.func.isRequired
   }
 
   updateQuery = (query) => {
-    this.setState({ query: query.trim() })
-
-    if(query.trim() !== '') {
-      BooksAPI.search(query, 15).then(books => this.setState({
-        searchBooks: books
-      }))
-    } else {
-      this.setState({
-        searchBooks: []
-      })
+    let maxResults=15
+    if (query.trim() === '' && query.length === 0) {
+      this.setState({ searchBooks: [], loading:false })
+      return
+    }
+    if (query.length !== 0){
+      BooksAPI.search(query, maxResults)
+        .then((searchResults) => {
+          if (searchResults.error) {
+             this.setState({ searchBooks: [], error: true, loading:false })
+             return
+          } else {
+              this.setState({ searchBooks: searchResults, loading:true, error: "" })
+          }
+        }).catch((error) => {
+          console.log(error)
+        })
     }
   }
 
@@ -53,30 +61,28 @@ class SearchBooks extends Component {
   }
 
   render() {
-
     const { books, onChangeBooksCategory } = this.props;
-    const { query, searchBooks } = this.state;
+    const { searchBooks, error, loading } = this.state;
     const searchBooksList = this.createSearchBooksList(searchBooks, books);
     searchBooksList.sort(sortBy('title'));
     return (
 
       <div className="search-books">
         <div className="search-books-bar">
-          <Link
-            to='/'
-            className="close-search"
-          >Close</Link>
+          <Link to='/' className="close-search">Close</Link>
           <div className="search-books-input-wrapper">
-            <input
-              type='text'
-              placeholder='Search by title or author'
-              value={query}
-              onChange={(event) => this.updateQuery(event.target.value)}
-            />
+            <Throttle time="500" handler="onChange">
+              <input type='text' placeholder='Search by title or author' onChange={(event) => this.updateQuery(event.target.value)}/>
+            </Throttle>
           </div>
         </div>
         <div className="search-books-results">
-          <BooksDetailsList books={searchBooksList} onChangeBooksCategory={onChangeBooksCategory}/>
+        {
+          error && (<div> No Results Found </div>)
+        }
+        {
+           loading && (<BooksDetailsList books={searchBooksList} onChangeBooksCategory={onChangeBooksCategory}/>)
+        }
         </div>
       </div>
     )

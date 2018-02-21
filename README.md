@@ -23,7 +23,8 @@ To get started developing right away:
     ├── App.css # Styles for your app. Feel free to customize this as you desire.
     ├── App.js # This is the root of your app. Contains static HTML right now.
     ├── App.test.js # Used for testing. Provided with Create React App. Testing is encouraged, but not required.
-    ├── BooksAPI.js # A JavaScript API for the provided Udacity backend. Instructions for the methods are below.
+    ├── utils
+    │   ├── BooksAPI.js # A JavaScript API for the provided Udacity backend. Instructions for the methods are below.
     ├── icons # Helpful images for your app. Use at your discretion.
     │   ├── add.svg
     │   ├── arrow-back.svg
@@ -84,3 +85,34 @@ The backend API uses a fixed set of cached search results and is limited to a pa
 ## Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). You can find more information on how to perform common tasks [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
+
+
+## About the Project
+
+This is the final assessment project for Udacity's React Nanodegree. The application is web based bookshelf which focus on three categories namely "wantToRead", "currentlyReading", "read". The user is free to search any book from the database and can move the book in any one of the category. Thus helping him to track his reading ability based on the three categories i.e. which books he/she is currently reading or which book he already read or which book he is willing to read.
+
+Note: The searching of the books is done via book title or author(s) name.
+
+## Prerequisites
+
+To install dependencies: ```npm install```
+
+## Getting started
+a) For running on local server:
+      To run the server locally: ```npm run start``` or ```yarn start```
+
+      And open the application on browser with url http://localhost:3000
+
+b) For running on production server:
+      To run the build server for production: ```npm run-script build``` or ```yarn build```
+
+      And then run: ```serve -s build```
+
+      Note: The project was built assuming it is hosted at the server root.
+        You can control this with the homepage field in your package.json.
+        For example, add this to build it for GitHub Pages:
+
+        "homepage" : "http://myname.github.io/myapp",
+
+        The build folder is ready to be deployed.
+        You may serve it with a static server: serve -s build

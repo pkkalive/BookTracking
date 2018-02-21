@@ -6,18 +6,17 @@ class BookDetails extends Component {
   static propTypes = {
     title: PropType.string.isRequired,
     imageUrl: PropType.string.isRequired,
-    authors: PropType.array.isRequired,
     onChangeBooksCategory: PropType.func.isRequired
   }
 
   render(){
-    const { title, imageUrl, authors, onChangeBooksCategory } = this.props;
+    const { title, imageUrl, authors, status, onChangeBooksCategory } = this.props;
     return (
       <div className='book'>
         <div className='book-top'>
           <div className='book-cover' style={{ width: 128, height: 193, backgroundImage: `url(${imageUrl})` }}></div>
           <div className='book-shelf-changer'>
-            <BookSelfChanger onChange={onChangeBooksCategory}/>
+            <BookSelfChanger status={status} onChange={onChangeBooksCategory}/>
           </div>
         </div>
         <div className='book-title'>{title}</div>

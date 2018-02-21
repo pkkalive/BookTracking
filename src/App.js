@@ -3,7 +3,6 @@ import * as BooksAPI from './utils/BooksAPI';
 import { Link, Route } from 'react-router-dom';
 import BooksList from './BooksList';
 import SearchBooks from './SearchBooks';
-import './App.css';
 
 
 class App extends Component {
@@ -32,19 +31,6 @@ class App extends Component {
   handleChangeBooksCategory(book, newCategory) {
     this.updateBookCategory(book, newCategory)
   }
-
-  getBookById(id) {
-    let books ="";
-    if(this.state.books) {
-      books = this.state.books.filter((book) => book.id === id)
-      if (books.length > 0) {
-        return books[0]
-      } else {
-        return null
-      }
-    }
-  }
-
 
   render() {
     return (

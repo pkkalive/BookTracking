@@ -8,9 +8,9 @@ class BookSelfChanger extends Component {
   }
 
   render(){
-    const {onChange} = this.props;
+    const { status, onChange } = this.props;
     return (
-      <select value={'none'} onChange={(event) => onChange(event.target.value)}>
+      <select value={ status|| 'none' } onChange={(event) => onChange(event.target.value)}>
         <option value='moveTo' disabled>Move to...</option>
         <option value='currentlyReading'>Currently Reading</option>
         <option value='wantToRead'>Want to Read</option>
